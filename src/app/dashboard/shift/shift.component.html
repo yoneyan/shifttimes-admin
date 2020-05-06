@@ -1,0 +1,37 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="prevMonth()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2 class="default">{{year}}年 {{month}}月 シフト</h2>
+  <button mat-icon-button (click)="nextMonth()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</mat-toolbar>
+<ng-container *ngIf="loading != 100">
+  <mat-progress-bar mode="determinate" value="{{loading}}"></mat-progress-bar>
+</ng-container>
+
+<h2 class="default">ID: {{id}}</h2>
+<h2 class="default">Name: {{user.name}}</h2>
+
+<button class="default" mat-raised-button color="primary" (click)="apply()">適用</button>
+<table border="4">
+  <tr>
+    <th>日付</th>
+    <th>予定</th>
+    <th *ngFor="let plan of plans">{{plan}}</th>
+    <th>事務</th>
+    <th>コメント</th>
+  </tr>
+  <ng-container *ngFor="let data of date;let i = index">
+    <tr *ngIf="data.schedule != '休校'">
+      <th>{{data.day}}日 ({{data.week}})</th>
+      <th>{{data.schedule}}</th>
+      <ng-container *ngIf="teacher.length != 0">
+        <th *ngFor="let shift of teacher" [ngStyle]="{'background-color': shift[i].color }">{{shift[i].display}}</th>
+        <th>{{office[i].display}}</th>
+        <th>{{comment[i]}}</th>
+      </ng-container>
+    </tr>
+  </ng-container>
+</table>

@@ -1,0 +1,52 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="prevMonth()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <h2 class="default">{{year}}年 {{month}}月</h2>
+  <button mat-icon-button (click)="nextMonth()">
+    <mat-icon>arrow_forward</mat-icon>
+  </button>
+</mat-toolbar>
+<ng-container *ngIf="loading != 100">
+  <mat-progress-bar mode="determinate" value="{{loading}}"></mat-progress-bar>
+</ng-container>
+<mat-card class="card">
+  <mat-card-title><h3>お知らせ：{{info}}</h3></mat-card-title>
+</mat-card>
+<br>
+<p class="default">適用ボタンを押さないと登録できないので注意してください</p>
+<button class="default" mat-stroked-button color="primary" (click)="autoSetting()">自動設定</button>
+<button class="default" mat-stroked-button color="primary" (click)="apply()">適用</button>
+<br>
+<br>
+<form class="default" [formGroup]="" (ngSubmit)="apply()">
+  <mat-form-field>
+    <mat-label>コメント</mat-label>
+    <input matInput placeholder="" [formControl]="comment">
+  </mat-form-field>
+</form>
+<br>
+<table border="4" class="table">
+  <tr>
+    <th>日付</th>
+    <th>予定</th>
+    <th>登録</th>
+  </tr>
+  <tr *ngFor="let data of schedule">
+    <td>{{data.date}}日 ({{data.week}})</td>
+    <ng-container *ngIf="data.schedule == '開校'">
+      <td class="blue">{{data.schedule}}</td>
+    </ng-container>
+    <ng-container *ngIf="data.schedule =='自習室のみ'">
+      <td class="yellow">{{data.schedule}}</td>
+    </ng-container>
+    <ng-container *ngIf="data.schedule =='閉校'">
+      <td class="red">{{data.schedule}}</td>
+    </ng-container>
+    <td>
+      <button mat-stroked-button color="primary" (click)="open(data.date);">開校</button>
+      <button mat-stroked-button (click)="onlyStudyRoom(data.date);">自習室のみ</button>
+      <button mat-stroked-button color="warn" (click)="close(data.date);">閉校</button>
+    </td>
+  </tr>
+</table>

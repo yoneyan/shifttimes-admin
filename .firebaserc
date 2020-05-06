@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "shifttimes": {
+      "hosting": {
+        "shifttimes-admin": [
+          "shifttimes"
+        ]
+      }
+    }
+  }
+}
