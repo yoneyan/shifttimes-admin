@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
+import {merge} from 'rxjs';
+import {CommonService} from './common.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +13,27 @@ export class UserService {
   constructor(
     public afAuth: AngularFireAuth,
     public afs: AngularFirestore,
+    private commonService: CommonService,
   ) {
   }
 
-  createUser(): void {
-    // let auth;
-    // this.afAuth.auth.createUserWithEmailAndPassword(account.email, account.pass)
-    //   .then(result => {
-    //     auth = result;
-    //     auth.user.sendEmailVerification();
-    //     this.createUserDatabase(auth.user.uid, new User(account.userid, account.name, account.isAdmin, true, false, true));
-    //     alert('User Create success!!');
-    //     // return this.createShiftDatabase(account.userid);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     alert('Failed register account!!!' + err);
-    //   });
+  createUser({d, email, pass}: {
+    d: { name: string; active: boolean; teacher: boolean; office: boolean; admin: boolean; id: string }, email: string, pass: string
+  }): void {
+    let auth;
+    this.afAuth.createUserWithEmailAndPassword(email, pass)
+      .then(result => {
+        auth = result;
+        result.user.sendEmailVerification().then();
+        this.afs.collection('users').doc(auth.uid).set(d, {merge: true})
+          .then(() => {
+            return true;
+          })
+          .catch(() => {
+            return false;
+          });
+      })
+      .catch(err => this.commonService.openBar('Failed register account!!!' + err, 2000));
   }
 
   registerUser(): void {
@@ -42,17 +48,6 @@ export class UserService {
     //   });
   }
 
-  // private createUserDatabase(uid: string, user: User): Promise<any> {
-  //   console.log(user.deserialize());
-  //   return this.afs.collection('users').doc(uid).set(user.deserialize())
-  //     .then(() => {
-  //       return true;
-  //     })
-  //     .catch(() => {
-  //         return false;
-  //       }
-  //     );
-  // }
 
   getUser(uid): Promise<any> {
     console.log('uid: ' + uid);
@@ -81,6 +76,5 @@ export class UserService {
       .then((d) => {
         return d;
       });
-
   }
 }
