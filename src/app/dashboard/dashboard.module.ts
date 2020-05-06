@@ -18,6 +18,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import { ShiftComponent } from './shift/shift.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AdduserComponent } from './adduser/adduser.component';
+import { UsersettingComponent } from './usersetting/usersetting.component';
 
 
 @NgModule({
@@ -27,6 +30,8 @@ import { ShiftComponent } from './shift/shift.component';
     UserComponent,
     ScheduleComponent,
     ShiftComponent,
+    AdduserComponent,
+    UsersettingComponent,
   ],
   imports: [
     CommonModule,
@@ -43,6 +48,7 @@ import { ShiftComponent } from './shift/shift.component';
     MatToolbarModule,
     MatInputModule,
     FormsModule,
+    MatTabsModule,
   ],
   exports: [
     MatCardModule,
