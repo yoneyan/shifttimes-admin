@@ -167,17 +167,17 @@ export class ShiftComponent implements OnInit {
           for (let j = 1; j <= end; j++) {
             if (data[`${j}` + '-' + `${i + 1}`] === 2 && teacher[i][j - 1].plan !== 2) {
               // ○
-              teacher[i][j - 1].display = teacher[i][j - 1].display + ' ( => ◯)';
+              teacher[i][j - 1].display = teacher[i][j - 1].display + ' → ◯';
               teacher[i][j - 1].color = '#6a6aec';
               teacher[i][j - 1].plan = 2;
             } else if (data[`${j}` + '-' + `${i + 1}`] === 1 && teacher[i][j - 1].plan !== 1) {
               // △
-              teacher[i][j - 1].display = teacher[i][j - 1].display + ' ( => △)';
+              teacher[i][j - 1].display = teacher[i][j - 1].display + ' → △';
               teacher[i][j - 1].color = '#ffff00';
               teacher[i][j - 1].plan = 1;
             } else if (data[`${j}` + '-' + `${i + 1}`] === 0 && teacher[i][j - 1].plan !== 0) {
               // X
-              teacher[i][j - 1].display = teacher[i][j - 1].display + ' ( => X)';
+              teacher[i][j - 1].display = teacher[i][j - 1].display + ' → X';
               teacher[i][j - 1].color = '#c71585';
               teacher[i][j - 1].plan = 0;
             }
@@ -186,7 +186,7 @@ export class ShiftComponent implements OnInit {
               // office
               if (data['o-' + `${i}`] === office[i].plan) {
                 office[j]({
-                  display: office[i].display + '( => ' + data['o-' + `${i}`] + ')',
+                  display: office[i].display + ' →  ' + data['o-' + `${i}`],
                   color: '#6a6aec',
                   plan: data['o-' + `${i}`]
                 });
