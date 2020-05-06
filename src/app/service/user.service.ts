@@ -56,7 +56,7 @@ export class UserService {
 
   getUser(uid): Promise<any> {
     console.log('uid: ' + uid);
-    const data = this.afs.collection('users').doc('3gcIF6Hty7MBkQvhZ6neYElDJBQ2');
+    const data = this.afs.collection('users').doc(uid);
     return data.ref.get()
       .then(doc => {
         console.log(doc);
@@ -78,11 +78,8 @@ export class UserService {
   getAllUser(): Promise<any> {
     const data = this.afs.collection('users');
     return data.ref.get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, ' => ', doc.data());
-        });
-        return querySnapshot;
+      .then((d) => {
+        return d;
       });
 
   }
