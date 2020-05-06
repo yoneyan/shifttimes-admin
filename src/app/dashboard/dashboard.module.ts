@@ -10,7 +10,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {UserComponent} from './user/user.component';
 import {MatCard, MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
-import { ScheduleComponent } from './schedule/schedule.component';
+import {ScheduleComponent} from './schedule/schedule.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatInputModule} from '@angular/material/input';
+import { ShiftComponent } from './shift/shift.component';
 
 
 @NgModule({
@@ -19,6 +26,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
     NoticeComponent,
     UserComponent,
     ScheduleComponent,
+    ShiftComponent,
   ],
   imports: [
     CommonModule,
@@ -28,12 +36,26 @@ import { ScheduleComponent } from './schedule/schedule.component';
     MatButtonModule,
     MatCardModule,
     MatChipsModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatInputModule,
+    FormsModule,
   ],
   exports: [
+    MatCardModule,
     MatSidenavModule,
     MatButtonModule,
-    MatCardModule,
     MatChipsModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatToolbarModule,
+    MatInputModule,
+    FormsModule,
   ]
 })
 export class DashboardModule {

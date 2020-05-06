@@ -4,6 +4,8 @@ import {DashboardComponent} from './dashboard.component';
 import {NoticeComponent} from './notice/notice.component';
 import {UserComponent} from './user/user.component';
 import {AuthGuard} from '../guard/auth.guard';
+import {ScheduleComponent} from './schedule/schedule.component';
+import {ShiftComponent} from './shift/shift.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
       {path: '', redirectTo: 'notice', pathMatch: 'full'},
       {path: 'notice', component: NoticeComponent},
       {path: 'user', component: UserComponent},
+      {path: 'schedule', component: ScheduleComponent},
+      {path: 'shift/:id/:year/:month', component: ShiftComponent},
     ]
   }
 ];
