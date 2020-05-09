@@ -134,7 +134,7 @@ export class ScheduleComponent implements OnInit {
     let day = this.startDate.getDay();
 
     for (let i = 1; i <= this.endDayCount; i++) {
-      if (day === 0 || 1) {
+      if (day === 0 || day === 1) {
         this.schedule[i - 1].schedule = '閉校';
       } else {
         this.schedule[i - 1].schedule = '開校';
