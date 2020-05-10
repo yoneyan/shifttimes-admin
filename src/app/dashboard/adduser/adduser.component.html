@@ -1,109 +1,57 @@
 <h1 class="default">ユーザ作成ページ</h1>
 <mat-tab-group>
   <mat-tab label="通常ユーザ">
-    <h2 class="default">注意！！</h2>
-    <p class="default"><b>ユーザ作成後に本人確認用のメールが送信されます。</b></p>
-    <p class="default"><b>（セキュリティ対策として、ユーザ作成時のみ本人確認が必要となっております。）</b></p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>名前</mat-label>
-        <input matInput placeholder="Placeholder" [formControl]="name" required>
-        <mat-hint>例）日根野 太郎</mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>ID</mat-label>
-        <input matInput placeholder="Placeholder" [formControl]="id" required>
-        <mat-hint>例）t00001</mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>メールアドレスを入力してください</mat-label>
-        <input matInput placeholder="test@axishineno.net" [formControl]="email" required>
-        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-        <mat-hint>例）axis@axishineno.net</mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>パスワード</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>同じパスワードを入力してください</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordVerify" required>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-    </p>
-
-    <button mat-stroked-button (click)="teacherCreate()">作成</button>
+    <div class="left">
+      <p class="default"><b>ユーザ作成を済ませてから、この作業を行ってください。</b></p>
+      <p>
+        <mat-form-field appearance="legacy" class="default">
+          <mat-label>名前</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="name" required>
+          <mat-hint>例）日根野 太郎</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy" class="default">
+          <mat-label>ID</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="id" required>
+          <mat-hint>例）t00001</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy" class="default">
+          <mat-label>ユーザーUID</mat-label>
+          <input matInput placeholder="d9823dsFD....." [formControl]="uid" required>
+          <mat-hint>例）d9823dsFD.....</mat-hint>
+        </mat-form-field>
+      </p>
+      <button mat-stroked-button (click)="teacherCreate()">作成</button>
+    </div>
   </mat-tab>
   <mat-tab label="管理者">
-    <h1 class="default">この項目は未実装です。</h1>
-  </mat-tab>
-  <mat-tab label="UID登録">
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>UserID</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-hint>例）日根野 太郎</mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>ID</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-hint>例）t00001</mat-hint>
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field appearance="legacy" class="default">
-        <mat-label>メールアドレス</mat-label>
-        <input matInput placeholder="Placeholder">
-        <mat-hint>例）axis@axishineno.net</mat-hint>
-      </mat-form-field>
-    </p>
+    <div class="left">
+      <p class="default"><b>ユーザ作成を済ませてから、この作業を行ってください。</b></p>
+      <p>
+        <mat-form-field appearance="legacy" class="default">
+          <mat-label>名前</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="name" required>
+          <mat-hint>例）日根野 太郎</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy" class="default">
+          <mat-label>ID</mat-label>
+          <input matInput placeholder="Placeholder" [formControl]="id" required>
+          <mat-hint>例）t00001</mat-hint>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy" class="default">
+          <mat-label>ユーザーUID</mat-label>
+          <input matInput placeholder="d9823dsFD....." [formControl]="uid" required>
+          <mat-hint>例）d9823dsFD.....</mat-hint>
+        </mat-form-field>
+      </p>
+      <button mat-stroked-button (click)="adminCreate()">作成</button>
+    </div>
   </mat-tab>
 </mat-tab-group>
-<!--<h2>Mail Register</h2>-->
-<!--<form #userlogin="ngForm" (ngSubmit)="UserCreate(userlogin.value)">-->
-<!--  <input id="name" name="name" type="text" placeholder="name" ngModel>-->
-<!--  <br>-->
-<!--  <input id="userid" name="userid" type="text" placeholder="userid" ngModel>-->
-<!--  <br>-->
-<!--  <input id="email" name="email" type="text" placeholder="email" ngModel>-->
-<!--  <br>-->
-<!--  <input id="pass" name="pass" type="password" placeholder="pass" ngModel>-->
-<!--  <br>-->
-<!--  <input id="passconfirm" name="passconfirm" type="password" placeholder="passconfirm" ngModel>-->
-<!--  <br>-->
-<!--  <br>-->
-<!--  <input type="submit" value="Register">-->
-<!--</form>-->
-<!--<br>-->
-<!--<br>-->
-
-<!--<p>UID Registerはサードパーティ認証を追加する際に使用します。</p>-->
-<!--<h2>Uid Register</h2>-->
-<!--<form #uid="ngForm" (ngSubmit)="uidRegister(uid.value)">-->
-<!--  <input id="uid_name" name="name" type="text" placeholder="name" ngModel>-->
-<!--  <br>-->
-<!--  <input id="uid_userid" name="userid" type="number" placeholder="userid" ngModel>-->
-<!--  <br>-->
-<!--  <input id="uid" name="uid" type="text" placeholder="uid" ngModel>-->
-<!--  <br>-->
-<!--  <br>-->
-<!--  <input type="submit" value="Register">-->
-<!--</form>-->

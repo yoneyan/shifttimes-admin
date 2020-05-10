@@ -1,7 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
-import {FormControl, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {CommonService} from '../../service/common.service';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-adduser',
@@ -13,41 +16,31 @@ export class AdduserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private commonService: CommonService,
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
+    private authService: AuthService
   ) {
   }
 
-  hide = false;
   id = new FormControl();
-  name = new FormControl('', [Validators.required, Validators.email]);
-  email = new FormControl();
-  password = new FormControl();
-  passwordVerify = new FormControl();
+  name = new FormControl();
+  uid = new FormControl();
 
 
   ngOnInit(): void {
   }
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
   teacherCreate() {
-    if (this.password !== this.passwordVerify) {
-      this.commonService.openBar('パスワードが異なります。', 2000);
-    }
     this.userService.createUser({
-      d: {name: this.name.value, active: true, teacher: true, office: false, admin: false, id: this.id.value},
-      email: this.email.value,
-      pass: this.password.value,
+      d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: false, isAdmin: false, id: this.id.value},
+      uid: this.uid.value,
     });
   }
 
-  uidRegister(data) {
-    // this.userService.registerUser(new DetailUserData(data.name, data.uid, data.userid, '0', '', '', false));
+  adminCreate() {
+    this.userService.createUser({
+      d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: true, isAdmin: true, id: this.id.value},
+      uid: this.uid.value,
+    });
   }
-
 }

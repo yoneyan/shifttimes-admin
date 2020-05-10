@@ -17,23 +17,12 @@ export class UserService {
   ) {
   }
 
-  createUser({d, email, pass}: {
-    d: { name: string; active: boolean; teacher: boolean; office: boolean; admin: boolean; id: string }, email: string, pass: string
+  createUser({d, uid}: {
+    d: { name: string; isActive: boolean; isTeacher: boolean; isOffice: boolean; isAdmin: boolean; id: string }, uid: string,
   }): void {
-    let auth;
-    this.afAuth.createUserWithEmailAndPassword(email, pass)
-      .then(result => {
-        auth = result;
-        result.user.sendEmailVerification().then();
-        this.afs.collection('users').doc(auth.uid).set(d, {merge: true})
-          .then(() => {
-            return true;
-          })
-          .catch(() => {
-            return false;
-          });
-      })
-      .catch(err => this.commonService.openBar('Failed register account!!!' + err, 2000));
+    this.afs.collection('users').doc(uid).set(d)
+      .then(() => this.commonService.openBar('登録完了しました。メールに本人確認用のリンクを踏んでアクセスしてください。', 2000))
+      .catch((err) => this.commonService.openBar('登録エラー:' + err, 20000));
   }
 
   registerUser(): void {
