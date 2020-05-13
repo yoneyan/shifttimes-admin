@@ -16,15 +16,25 @@ export class AdduserComponent implements OnInit {
   ) {
   }
 
-  hide = false;
-  id = new FormControl();
-  name = new FormControl('', [Validators.required, Validators.email]);
-  email = new FormControl();
+  hide = true;
+  email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl();
-  passwordVerify = new FormControl();
-
+  id = new FormControl();
+  aId = new FormControl();
+  tId = new FormControl();
+  oId = new FormControl();
+  name = new FormControl();
+  uid = new FormControl();
+  stat = false;
 
   ngOnInit(): void {
+    this.stat = this.commonService.getUserRegister().result;
+    this.uid.setValue(this.commonService.getUserRegister().uid);
+    this.userService.nextID().then(r => {
+      this.aId.setValue(r.admin);
+      this.tId.setValue(r.teacher);
+      this.oId.setValue(r.office);
+    });
   }
 
   getErrorMessage() {
@@ -35,19 +45,22 @@ export class AdduserComponent implements OnInit {
     return this.email.hasError('email') ? 'Not a valid email' : '';
   }
 
+  userRegister() {
+    this.userService.registerUser(this.email.value, this.password.value);
+  }
+
   teacherCreate() {
-    if (this.password !== this.passwordVerify) {
-      this.commonService.openBar('パスワードが異なります。', 2000);
-    }
     this.userService.createUser({
-      d: {name: this.name.value, active: true, teacher: true, office: false, admin: false, id: this.id.value},
-      email: this.email.value,
-      pass: this.password.value,
+      d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: false, isAdmin: false, id: this.tId.value},
+      uid: this.uid.value,
+    });
+    this.commonService.pushUserRegister({result: false, uid: ''});
+  }
+
+  uidRegistration() {
+    this.userService.createUser({
+      d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: true, isAdmin: true, id: this.id.value},
+      uid: this.uid.value,
     });
   }
-
-  uidRegister(data) {
-    // this.userService.registerUser(new DetailUserData(data.name, data.uid, data.userid, '0', '', '', false));
-  }
-
 }

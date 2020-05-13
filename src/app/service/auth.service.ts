@@ -1,6 +1,6 @@
 import {Injectable, NgZone} from '@angular/core';
 import {Router} from '@angular/router';
-import {auth, User} from 'firebase';
+import {auth} from 'firebase';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {UserService} from './user.service';
 import {CommonService} from './common.service';
@@ -28,27 +28,25 @@ export class AuthService {
 
   loginWithMail(email: string, pass: string): void {
     this.afAuth.signInWithEmailAndPassword(email, pass)
-      .then(() => {
-        this.loginProcess();
-      })
+      .then(() => this.loginProcess())
       .catch(error => this.loginFailedProcess(error));
   }
 
   loginWithGoogle() {
     this.afAuth.signInWithPopup(new auth.GoogleAuthProvider())
-      .then(this.loginProcess)
+      .then(() => this.loginProcess())
       .catch(error => this.loginFailedProcess(error));
   }
 
   loginWithTwitter() {
     this.afAuth.signInWithPopup(new auth.TwitterAuthProvider())
-      .then(this.loginProcess)
+      .then(() => this.loginProcess())
       .catch(error => this.loginFailedProcess(error));
   }
 
   loginWithFacebook() {
     this.afAuth.signInWithPopup(new auth.FacebookAuthProvider())
-      .then(this.loginProcess)
+      .then(() => this.loginProcess())
       .catch(error => this.loginFailedProcess(error));
   }
 
@@ -68,7 +66,12 @@ export class AuthService {
             .then(r => {
               if (r.isActive && r !== 0 && r.isAdmin) {
                 localStorage.setItem('name', r.name);
-                this.router.navigate(['/dashboard']).then();
+                console.log(this.commonService.getUserRegister());
+                if (this.commonService.getUserRegister().result) {
+                  this.router.navigate(['/dashboard/user/add']).then();
+                } else {
+                  this.router.navigate(['/dashboard']).then();
+                }
               } else {
                 this.commonService.openBar('以下が原因でログアウト処理を行いました。\n管理者ではない、アカウントがアクティブではありません。', 4000);
                 this.logOut();
@@ -98,7 +101,7 @@ export class AuthService {
     localStorage.clear();
     this.afAuth.signOut().then(() => {
       this.commonService.openBar('ログアウトしました', 2000);
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then();
     });
   }
 
