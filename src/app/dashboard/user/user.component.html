@@ -19,6 +19,9 @@
                 <ng-container *ngIf="d.office">
                   <mat-chip color="primary" selected>事務</mat-chip>
                 </ng-container>
+                <ng-container *ngIf="d.line == undefined">
+                  <mat-chip color="warn" selected>LINE未登録</mat-chip>
+                </ng-container>
               </mat-chip-list>
             </mat-card-subtitle>
           </mat-card-content>

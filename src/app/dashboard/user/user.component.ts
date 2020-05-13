@@ -51,9 +51,11 @@ export class UserComponent implements OnInit {
             office: d.docs[i].data().isOffice,
             teacher: d.docs[i].data().isTeacher,
             uid: d.docs[i].id,
-            id: d.docs[i].data().id
+            id: d.docs[i].data().id,
+            line: d.docs[i].data().lineid,
           });
         }
+        console.log(this.data);
       });
   }
 
@@ -67,4 +69,5 @@ interface Data {
   admin: boolean;
   teacher: boolean;
   office: boolean;
+  line: string;
 }
