@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../service/user.service';
-import {FormControl} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import {CommonService} from '../../service/common.service';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AuthService} from '../../service/auth.service';
 
 @Component({
   selector: 'app-adduser',
@@ -16,28 +13,51 @@ export class AdduserComponent implements OnInit {
   constructor(
     private userService: UserService,
     private commonService: CommonService,
-    public afs: AngularFirestore,
-    public afAuth: AngularFireAuth,
-    private authService: AuthService
   ) {
   }
 
+  hide = true;
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl();
   id = new FormControl();
+  aId = new FormControl();
+  tId = new FormControl();
+  oId = new FormControl();
   name = new FormControl();
   uid = new FormControl();
-
+  stat = false;
 
   ngOnInit(): void {
+    this.stat = this.commonService.getUserRegister().result;
+    this.uid.setValue(this.commonService.getUserRegister().uid);
+    this.userService.nextID().then(r => {
+      this.aId.setValue(r.admin);
+      this.tId.setValue(r.teacher);
+      this.oId.setValue(r.office);
+    });
+  }
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  userRegister() {
+    this.userService.registerUser(this.email.value, this.password.value);
   }
 
   teacherCreate() {
     this.userService.createUser({
-      d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: false, isAdmin: false, id: this.id.value},
+      d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: false, isAdmin: false, id: this.tId.value},
       uid: this.uid.value,
     });
+    this.commonService.pushUserRegister({result: false, uid: ''});
   }
 
-  adminCreate() {
+  uidRegistration() {
     this.userService.createUser({
       d: {name: this.name.value, isActive: true, isTeacher: true, isOffice: true, isAdmin: true, id: this.id.value},
       uid: this.uid.value,

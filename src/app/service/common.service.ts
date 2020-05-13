@@ -11,9 +11,19 @@ export class CommonService {
   ) {
   }
 
+  private register = {result: false, uid: ''};
+
   public openBar(message: string, time: number) {
     this.snackBar.open(message, 'done', {
       duration: time,
     });
+  }
+
+  public pushUserRegister(data: any) {
+    this.register = data;
+  }
+
+  public getUserRegister(): any {
+    return this.register;
   }
 }
