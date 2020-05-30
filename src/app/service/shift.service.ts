@@ -103,20 +103,31 @@ export class ShiftService {
   applyShift(base, teacher, office): Promise<any> {
     console.log(base);
     const doc = {};
+    const docBase = {};
     for (const t of teacher) {
       doc[t.date] = t.data;
     }
     for (const o of office) {
       doc[o.date] = o.data;
     }
+
     doc[`time`] = new Date().getTime();
+
+    docBase[`locked`] = 'false';
 
     console.log(doc);
     return this.afs.collection('result').doc(base.id)
       .collection('shift').doc('latest')
       .collection(`${base.year}`).doc(`${base.month}`).set(doc, {merge: true})
       .then(() => {
-          return 0;
+          this.afs.collection('shiftdata').doc(base.id)
+            .collection(`${base.year}`).doc(`${base.month}`).set(docBase, {merge: true})
+            .then(() => {
+              return 0;
+            })
+            .catch((error) => {
+              return error;
+            });
         }
       )
       .catch((error) => {
