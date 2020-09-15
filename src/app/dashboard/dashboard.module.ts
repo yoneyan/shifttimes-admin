@@ -17,10 +17,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
-import { ShiftComponent } from './shift/shift.component';
+import {ShiftComponent} from './shift/shift.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { AdduserComponent } from './adduser/adduser.component';
-import { UsersettingComponent } from './usersetting/usersetting.component';
+import {AdduserComponent} from './adduser/adduser.component';
+import {SettingComponent} from './user/setting.component';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { UsersettingComponent } from './usersetting/usersetting.component';
     ScheduleComponent,
     ShiftComponent,
     AdduserComponent,
-    UsersettingComponent,
+    SettingComponent,
   ],
   imports: [
     CommonModule,

@@ -7,7 +7,7 @@ import {AuthGuard} from '../guard/auth.guard';
 import {ScheduleComponent} from './schedule/schedule.component';
 import {ShiftComponent} from './shift/shift.component';
 import {AdduserComponent} from './adduser/adduser.component';
-import {UsersettingComponent} from './usersetting/usersetting.component';
+import {SettingComponent} from './user/setting.component';
 
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
       {path: '', redirectTo: 'notice', pathMatch: 'full'},
       {path: 'notice', component: NoticeComponent},
       {path: 'user/add', component: AdduserComponent},
-      {path: 'user/setting', component: UsersettingComponent},
+      {path: 'user/setting', component: SettingComponent},
       {path: 'user', component: UserComponent},
       {path: 'schedule', component: ScheduleComponent},
       {path: 'shift/:id/:year/:month', component: ShiftComponent},
